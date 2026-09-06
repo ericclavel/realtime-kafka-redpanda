@@ -44,8 +44,10 @@ services:
       - ./src/:/opt/src
     command: jobmanager
     environment:
-      - |
-        FLINK_PROPERTIES=
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      FLINK_PROPERTIES: |
         jobmanager.rpc.address: jobmanager
         jobmanager.memory.process.size: 1600m
 
@@ -62,8 +64,10 @@ services:
       - jobmanager
     command: taskmanager --taskmanager.registration.timeout 5 min
     environment:
-      - |
-        FLINK_PROPERTIES=
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      FLINK_PROPERTIES: |
         jobmanager.rpc.address: jobmanager
         taskmanager.memory.process.size: 1728m
         taskmanager.numberOfTaskSlots: 15
